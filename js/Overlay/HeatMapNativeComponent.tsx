@@ -17,7 +17,6 @@ type Gradient = Readonly<{
 export interface NativeProps extends ViewProps {
   points : pointsData;
   gradient: Gradient;
-  // 添加其它 props
 }
 
 export default codegenNativeComponent<NativeProps>(

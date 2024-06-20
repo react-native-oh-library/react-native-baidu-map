@@ -3,7 +3,7 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 import type { Float } from 'react-native/Libraries/Types/CodegenTypes';
 
 export interface NativeProps extends ViewProps {
-  // 添加其它 props
+
 }
 
 export default codegenNativeComponent<NativeProps>(

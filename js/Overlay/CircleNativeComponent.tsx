@@ -17,7 +17,6 @@ export interface NativeProps extends ViewProps {
   fillColor: string;
   stroke: Stroke;
   center: Location;
-  // 添加其它 props
 }
 
 export default codegenNativeComponent<NativeProps>(

@@ -14,8 +14,6 @@ export interface NativeProps extends ViewProps {
   bgColor : string;
   rotate : Float;
   location : Location;
-  
-  // 添加其它 props
 }
 
 export default codegenNativeComponent<NativeProps>(

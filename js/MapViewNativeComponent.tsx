@@ -51,7 +51,6 @@ export interface NativeProps extends ViewProps {
   onMapDoubleClick: DirectEventHandler<VoidEventData>,
   onMarkerClick: DirectEventHandler<onMarkerClickEvent>,
   onMapPoiClick: DirectEventHandler<VoidEventData>
-  // 添加其它 props
 }
 
 export default codegenNativeComponent<NativeProps>(

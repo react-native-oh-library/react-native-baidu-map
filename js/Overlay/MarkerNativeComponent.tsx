@@ -50,7 +50,6 @@ export interface NativeProps extends ViewProps {
     pinColor: string;
 
     onClick?: DirectEventHandler<onMarkerClickEvent>;
-  // 添加其它 props
 }
 
 export default codegenNativeComponent<NativeProps>(
