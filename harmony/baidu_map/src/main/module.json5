@@ -1,0 +1,7 @@
+{
+  module: {
+    name: 'baidu_map',
+    type: 'har',
+    deviceTypes: ['default'],
+  },
+}
