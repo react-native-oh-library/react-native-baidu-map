@@ -19,7 +19,6 @@ export interface NativeProps extends ViewProps {
   dash:boolean;
   stroke : Stroke;
   points : pointsData;
-  // 添加其它 props
 }
 
 export default codegenNativeComponent<NativeProps>(

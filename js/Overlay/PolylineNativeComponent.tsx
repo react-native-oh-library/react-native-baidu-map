@@ -18,8 +18,6 @@ import type { Float } from 'react-native/Libraries/Types/CodegenTypes';
 export interface NativeProps extends ViewProps {
   stroke : Stroke;
   points : pointsData;
-  // 添加其它 props
-}
 
 export default codegenNativeComponent<NativeProps>(
   'BaiduMapOverlayPolyline',
