@@ -6,9 +6,10 @@
  */
 
 import {
-  NativeModules,
   DeviceEventEmitter
 } from 'react-native';
+
+import NativeTurboModule from './NativeTurboModule';
 
 import React, {
   Component,
@@ -16,7 +17,7 @@ import React, {
 } from 'react';
 
 
-const _module = NativeModules.BaiduGeolocationModule;
+const _module = NativeTurboModule;
 
 const _locatingUpdateListener = {
   listener: null,
@@ -39,7 +40,7 @@ export default {
         reject(e);
         return;
       }
-      DeviceEventEmitter.once('onGetGeoCodeResult', resp => {
+      DeviceEventEmitter.addListener('onGetGeoCodeResult', resp => {
         resolve(resp);
       });
     });
@@ -56,7 +57,7 @@ export default {
         reject(e);
         return;
       }
-      DeviceEventEmitter.once('onGetReverseGeoCodeResult', resp => {
+      DeviceEventEmitter.addListener('onGetReverseGeoCodeResult', resp => {
         resolve(resp);
       });
     });
@@ -70,7 +71,7 @@ export default {
         reject(e);
         return;
       }
-      DeviceEventEmitter.once('onGetReverseGeoCodeResult', resp => {
+      DeviceEventEmitter.addListener('onGetReverseGeoCodeResult', resp => {
         resp.latitude = parseFloat(resp.latitude);
         resp.longitude = parseFloat(resp.longitude);
         resolve(resp);
@@ -92,7 +93,7 @@ export default {
         reject(e);
         return;
       }
-      DeviceEventEmitter.once('onGetCurrentLocationPosition', resp => {
+      DeviceEventEmitter.addListener('onGetCurrentLocationPosition', resp => {
         if (resp.errcode) {
           reject(resp)
           return;
