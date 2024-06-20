@@ -1,10 +1,8 @@
 // Created by Riant 2019/10/22
 
-import {
-  NativeModules,
-} from 'react-native'
+import  NativeTurboModule from './NativeTurboModule';
 
-const _module = NativeModules.BaiduGetDistanceModule;
+const _module = NativeTurboModule;
 
 export default {
   getLocationDistance({latitude, longitude}, {latitude: latitude2, longitude: longitude2}) {
