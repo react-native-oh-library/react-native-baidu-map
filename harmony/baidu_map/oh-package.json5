@@ -1,0 +1,18 @@
+{
+  "license": "ISC",
+  "types": "",
+  "devDependencies": {
+
+  },
+  "author": "",
+  "name": "@react-native-oh-tpl/react-native-baidu-map",
+  "description": "Please describe the basic information.",
+  "main": "index.ets",
+  "version": "1.0.37",
+  "dependencies": {
+    "@rnoh/react-native-openharmony": "file:../react_native_openharmony",
+    "@bdmap/base": "1.0.0",
+    "@bdmap/search": "1.0.0",
+    "@bdmap/map": "1.0.0"
+  }
+}
