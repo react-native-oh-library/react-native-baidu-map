@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import _MapView from './js/MapView';
-import _MapTypes from './js/MapTypes';
+import _MapTypes from 'react-native-baidu-map/js/MapTypes';
 import _Geolocation from './js/Geolocation';
 import _GetDistance from './js/GetDistance';
 import _Overlay from './js/Overlay/index';
