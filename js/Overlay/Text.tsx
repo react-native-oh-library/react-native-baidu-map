@@ -22,7 +22,7 @@ export default class OverlayText extends Component<NativeProps> {
     text: PropTypes.string,
     fontSize: PropTypes.number,
     fontColor: PropTypes.string,
-    bgColor: PropTypes.number,
+    bgColor: PropTypes.string,
     rotate: PropTypes.number,
     location: PropTypes.object
   };
