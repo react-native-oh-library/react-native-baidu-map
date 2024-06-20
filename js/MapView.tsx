@@ -5,16 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  requireNativeComponent,
-  View
-} from 'react-native';
+
+import BaiduMapView, { NativeProps } from "./MapViewNativeComponent";
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import MapTypes from './MapTypes';
-import Overlay from './Overlay';
 
-export default class MapView extends Component {
+export default class MapView extends Component<NativeProps> {
   static propTypes = {
     ...View.propTypes,
     zoomControlsVisible: PropTypes.bool,
@@ -61,11 +59,7 @@ export default class MapView extends Component {
   }
 
   render() {
-    return <BaiduMapView {...this.props} onChange={this._onChange.bind(this)}/>;
+    return <BaiduMapView {...this.props} onChange={this._onChange.bind(this)} />;
   }
   
 }
-
-const BaiduMapView = requireNativeComponent('BaiduMapView', MapView, {
-  nativeOnly: {onChange: true}
-});
