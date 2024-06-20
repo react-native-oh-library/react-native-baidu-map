@@ -23,5 +23,11 @@
   "devDependencies": {
     "react": "16.6.1",
     "react-native": "^0.57.5"
+  },
+  "dependencies": {
+    "react-native-baidu-map": "1.0.37"
+  },
+  "harmony": {
+    "alias": "react-native-baidu-map"
   }
 }

@@ -10,7 +10,7 @@ import BaiduMapView, { NativeProps } from "./MapViewNativeComponent";
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import MapTypes from './MapTypes';
+import MapTypes from 'react-native-baidu-map/MapTypes';
 
 export default class MapView extends Component<NativeProps> {
   static propTypes = {
