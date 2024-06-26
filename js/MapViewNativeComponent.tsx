@@ -7,7 +7,7 @@ import type { Float,DirectEventHandler } from 'react-native/Libraries/Types/Code
     width?: Float;
   }>
 
-  type Location = Readonly<{
+  export type Location = Readonly<{
     latitude?: Float;
     longitude?: Float;
   }>

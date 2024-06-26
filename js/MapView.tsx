@@ -6,11 +6,12 @@
  */
 
 
-import BaiduMapView, { NativeProps } from "./MapViewNativeComponent";
+import BaiduMapView, { NativeProps, Location } from "./MapViewNativeComponent";
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import MapTypes from 'react-native-baidu-map/MapTypes';
+import MapTypes from 'react-native-baidu-map/js/MapTypes';
+import type * as ReactNative from "react-native";
 
 export default class MapView extends Component<NativeProps> {
   static propTypes = {
@@ -51,6 +52,12 @@ export default class MapView extends Component<NativeProps> {
   constructor() {
     super();
   }
+  
+  _onMapClick = (e: ReactNative.NativeSyntheticEvent<Location>) => {
+	if (this.props.onMapClick) {
+		this.props.onMapClick(e.nativeEvent);
+	}
+  }
 
   _onChange(event) {
     if (typeof this.props[event.nativeEvent.type] === 'function') {
@@ -59,7 +66,13 @@ export default class MapView extends Component<NativeProps> {
   }
 
   render() {
-    return <BaiduMapView {...this.props} onChange={this._onChange.bind(this)} />;
+    const nativeProps = {
+      ...this.props,
+      ...{
+        onMapClick: this._onMapClick
+      },
+    };
+    return <BaiduMapView {...nativeProps} onChange={this._onChange.bind(this)} />;
   }
   
 }
