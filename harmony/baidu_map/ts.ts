@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (C) 2024 Huawei Device Co., Ltd.
+ * Copyright (C) 2023 Huawei Device Co., Ltd.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-export * from "./src/main/ets/BaiduMapView"
-export * from "./src/main/ets/BaiduMapOverlayCircle"
-export * from "./src/main/ets/BaiduMapOverlayInfowindow"
-export * from "./src/main/ets/BaiduMapOverlayMarker"
-export * from "./src/main/ets/BaiduMapOverlayPolygon"
-export * from "./src/main/ets/BaiduMapOverlayPolyline"
-export * from "./src/main/ets/BaiduMapOverlayText"
+
+export * from "./src/main/ets/BaiduMapPackage"
+export * from "./src/main/ets/BaiduMapTurboModule"
