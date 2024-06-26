@@ -21,10 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-export * from "./src/main/ets/BaiduMapView"
-export * from "./src/main/ets/BaiduMapOverlayCircle"
-export * from "./src/main/ets/BaiduMapOverlayInfowindow"
-export * from "./src/main/ets/BaiduMapOverlayMarker"
-export * from "./src/main/ets/BaiduMapOverlayPolygon"
-export * from "./src/main/ets/BaiduMapOverlayPolyline"
-export * from "./src/main/ets/BaiduMapOverlayText"
+import MapController from '@bdmap/map/src/main/ets/a/d/e/f';
+
+export class MapEnvConstant {
+  private static _instance: MapEnvConstant;
+  map: MapController | null = null;
+
+  static getInstance() {
+    if (!MapEnvConstant._instance) {
+      MapEnvConstant._instance = new MapEnvConstant();
+    }
+    return MapEnvConstant._instance;
+  }
+
+  setMap(map: MapController) {
+    this.map = map;
+  }
+
+  getMap() {
+    return this.map;
+  }
+
+  private constructor() {
+  }
+}

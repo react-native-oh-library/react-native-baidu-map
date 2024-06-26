@@ -21,10 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-export * from "./src/main/ets/BaiduMapView"
-export * from "./src/main/ets/BaiduMapOverlayCircle"
-export * from "./src/main/ets/BaiduMapOverlayInfowindow"
-export * from "./src/main/ets/BaiduMapOverlayMarker"
-export * from "./src/main/ets/BaiduMapOverlayPolygon"
-export * from "./src/main/ets/BaiduMapOverlayPolyline"
-export * from "./src/main/ets/BaiduMapOverlayText"
+export class Stroke {
+  width: number = 0;
+  color: string = '';
+}
+
+export class Location {
+  latitude: number = 0;
+  longitude: number = 0;
+}
+
+export class OpenLocation extends Location {
+  name?: string;
+}
+
+export class GeoCodeData {
+  address: string;
+  province: string;
+  cityCode: string;
+  city: string;
+  district: string;
+  streetName: string;
+  streetNumber: string;
+}
+
+export class CurrentPosition extends GeoCodeData {
+  latitude: number;
+  longitude: number;
+}

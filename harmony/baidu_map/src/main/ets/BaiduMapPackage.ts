@@ -21,10 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-export * from "./src/main/ets/BaiduMapView"
-export * from "./src/main/ets/BaiduMapOverlayCircle"
-export * from "./src/main/ets/BaiduMapOverlayInfowindow"
-export * from "./src/main/ets/BaiduMapOverlayMarker"
-export * from "./src/main/ets/BaiduMapOverlayPolygon"
-export * from "./src/main/ets/BaiduMapOverlayPolyline"
-export * from "./src/main/ets/BaiduMapOverlayText"
+
+import type { TurboModule, TurboModuleContext } from '@rnoh/react-native-openharmony/ts';
+import { RNPackage, TurboModulesFactory } from '@rnoh/react-native-openharmony/ts';
+import { BaiduMapTurboModule } from './BaiduMapTurboModule';
+
+class BaiduMapTurboModulesFactory extends TurboModulesFactory {
+  createTurboModule(name: string): TurboModule | null {
+    if (name === 'NativeTurboModule') {
+      return new BaiduMapTurboModule(this.ctx);
+    }
+    return null;
+  }
+
+  hasTurboModule(name: string): boolean {
+    return name === 'NativeTurboModule';
+  }
+}
+
+export class BaiduMapPackage extends RNPackage {
+  createTurboModulesFactory(ctx: TurboModuleContext): TurboModulesFactory {
+    return new BaiduMapTurboModulesFactory(ctx);
+  }
+}
