@@ -10,7 +10,7 @@ import {
   Platform
 } from 'react-native';
 
-import BaiduMapOverlayText,{ NativeProps } from "./PolygonNativeComponent";
+import BaiduMapOverlayText,{ NativeProps } from "./TextNativeComponent";
 
 import React, { Component } from 'react';
 
