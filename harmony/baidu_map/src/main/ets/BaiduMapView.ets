@@ -342,11 +342,11 @@ export struct BaiduMapView {
               this.marker.setAlpha(this.markerProp.alpha);
             }
 
-            if (this.markerProp.flat) {
+            if (this.markerProp.flat != null) {
               this.marker.setFlat(this.markerProp.flat);
             }
 
-            if (this.markerProp.perspective) {
+            if (this.markerProp.perspective != null) {
               this.marker.setPerspective(this.markerProp.perspective);
             }
 
@@ -401,10 +401,7 @@ export struct BaiduMapView {
             })
 
             if (this.polylineProp.stroke) {
-              this.polygon?.setStroke(new BaiduStroke(new BaiduStroke({
-                strokeWidth: this.polylineProp.stroke.width,
-                color: '#' + this.polylineProp.stroke.color
-              })));
+
             }
 
             if (this.mapController) {
