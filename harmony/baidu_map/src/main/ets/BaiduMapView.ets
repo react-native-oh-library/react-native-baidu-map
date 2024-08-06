@@ -324,7 +324,7 @@ export struct BaiduMapView {
           if (this.markerProp) {
             Logger.debug(`RNOH in BaiduMap addOverlay marker prop, ${JSON.stringify(this.markerProp)}`);
             if (this.markerProp.icon && this.markerProp.icon.uri) {
-              this.image = new ImageEntity(this.markerProp.icon.uri);
+              this.image = new ImageEntity(this.markerProp.icon.uri, 20, 20);
             }
 
             this.marker = new Marker();
