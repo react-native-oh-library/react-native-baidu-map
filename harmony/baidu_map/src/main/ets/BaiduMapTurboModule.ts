@@ -27,11 +27,11 @@ import { TurboModule } from '@rnoh/react-native-openharmony/ts';
 import Logger from './Logger';
 import { MapEnvConstant } from './MapEnvConstant';
 import type { CurrentPosition, GeoCodeData, Location, OpenLocation } from './PublicClass';
-import { BusRoute, DrivingRoute, IPasspoints, Passpoint, WalkingRoute } from '@bdmap/search';
-import ImageEntity from '@bdmap/map/src/main/ets/a/d/e/k/o';
-import Marker from '@bdmap/map/src/main/ets/a/d/e/i/s';
-import Polyline from '@bdmap/map/src/main/ets/a/d/e/i/n';
-import * as SysEnum from '@bdmap/map/src/main/ets/a/d/u/v/w';
+import { DrivingRoutePlanOption, PlanNode, RoutePlanSearch, TransitRoutePlanOption,
+  WalkingRoutePlanOption } from '@bdmap/search';
+import ImageEntity from '@bdmap/map/src/main/ets/r/u/v/b1/f1';
+import Marker from '@bdmap/map/src/main/ets/r/u/v/z/j1';
+import Polyline from '@bdmap/map/src/main/ets/r/u/v/z/e1';
 import { Permissions } from '@kit.AbilityKit';
 import { PermissionUtils } from './PermissionsUtils';
 
@@ -61,6 +61,45 @@ interface walkRoutes {
   routes: Array<step>
 }
 
+class DrivingRoutePlan implements DrivingRoutePlanOption {
+  mFrom: PlanNode = new PlanNode({ location: new LatLng(39.9003, 116.3282) });
+  mTo: PlanNode = new PlanNode({ location: new LatLng(39.8707, 116.3859) });
+
+  public setRealFrom(value: LatLng) {
+    this.mFrom = new PlanNode({ location: value });
+  }
+
+  public setRealTo(value: LatLng) {
+    this.mTo = new PlanNode({ location: value });
+  }
+}
+
+class TransitRoutePlan implements TransitRoutePlanOption {
+  from: PlanNode = new PlanNode({ location: new LatLng(39.9003, 116.3282) });
+  to: PlanNode = new PlanNode({ location: new LatLng(39.8707, 116.3859) });
+
+  public setRealFrom(value: LatLng) {
+    this.from = new PlanNode({ location: value });
+  }
+
+  public setRealTo(value: LatLng) {
+    this.to = new PlanNode({ location: value });
+  }
+}
+
+class WalkingRoutePlan implements WalkingRoutePlanOption {
+  from: PlanNode = new PlanNode({ location: new LatLng(39.9003, 116.3282) });
+  to: PlanNode = new PlanNode({ location: new LatLng(39.8707, 116.3859) });
+
+  public setRealFrom(value: LatLng) {
+    this.from = new PlanNode({ location: value });
+  }
+
+  public setRealTo(value: LatLng) {
+    this.to = new PlanNode({ location: value });
+  }
+}
+
 export class BaiduMapTurboModule extends TurboModule {
   constructor(protected ctx: TurboModuleContext) {
     super(ctx);
@@ -78,7 +117,7 @@ export class BaiduMapTurboModule extends TurboModule {
     let map = MapEnvConstant.getInstance().getMap();
     if (map) {
       Logger.debug(TAG, 'baiduMapTurboModule has map');
-      const br: DrivingRoute = new DrivingRoute();
+      const br: RoutePlanSearch = new RoutePlanSearch();
       const fromArr: LatLng = new LatLng(sl.latitude, sl.longitude);
       const toArr: LatLng = new LatLng(el.latitude, el.longitude);
       Logger.debug('DrivingRoute 绘制起点')
@@ -115,16 +154,19 @@ export class BaiduMapTurboModule extends TurboModule {
       map.addOverlay(marker2);
       Logger.debug('DrivingRoute 获取驾车路线规划')
 
+      const routePlan = new DrivingRoutePlan();
+      routePlan.setRealFrom(fromArr);
+      routePlan.setRealTo(toArr);
       // 获取驾车路线规划
-      br.getRouteLines(fromArr, toArr, (res: routeres) => {
+      br.drivingSearch(routePlan).then((res) => {
         Logger.debug('DrivingRoute 选取第一个路线规划方案')
 
-        let routes = res.routes[0]; // 选取第一个路线规划方案
+        let routes = res.routeLines[0]; // 选取第一个路线规划方案
         // 解析路线
-        let steps: steps = routes.steps[0];
+        let steps = routes.steps[0];
         let line: Array<LatLng> = [];
 
-        for (let i = 0; i < steps.length; i++) {
+        for (let i = 0; i < steps.pathList.length; i++) {
           let ll: LatLng = new LatLng(steps[i].path[0].lat, steps[i].path[0].lng);
           line.push(ll);
         }
@@ -132,13 +174,11 @@ export class BaiduMapTurboModule extends TurboModule {
           points: line,
           fillcolor: '#6af',
           width: 10,
-          join: SysEnum.LineJoinType.ROUND,
-          cap: SysEnum.LineCapType.ROUND,
           isThined: true,
           isGeodesic: true
         });
         map?.addOverlay(polyline);
-      }, {})
+      })
     }
   };
 
@@ -153,7 +193,7 @@ export class BaiduMapTurboModule extends TurboModule {
     let map = MapEnvConstant.getInstance().getMap();
     if (map) {
       Logger.debug(TAG, 'baiduMapTurboModule has map');
-      const br: BusRoute = new BusRoute();
+      const br: RoutePlanSearch = new RoutePlanSearch();
       const fromArr: LatLng = new LatLng(sl.latitude, sl.longitude);
       const toArr: LatLng = new LatLng(el.latitude, el.longitude);
       // 绘制起点
@@ -187,30 +227,29 @@ export class BaiduMapTurboModule extends TurboModule {
       });
       map.addOverlay(marker2);
       // 获取公交路线规划
-      br.getRouteLines(fromArr, toArr, (res: IPasspoints) => {
-        try {
-          let resultLine: Array<LatLng> = []
-          let passPoints: Array<Passpoint> = res.passpoints
-          let passPoint: Passpoint = passPoints[0]
-          for (let i = 0; i < passPoint.length; i++) {
-            let path = passPoint[i]
-            let ll: LatLng = new LatLng(path.lat, path.lng)
-            resultLine.push(ll)
-          }
-          let polyline: Polyline = new Polyline({
-            points: resultLine,
-            fillcolor: '#a6f',
-            width: 10,
-            join: SysEnum.LineJoinType.ROUND,
-            cap: SysEnum.LineCapType.BUTT,
-            isThined: true,
-            isGeodesic: true
-          });
-          map?.addOverlay(polyline);
-        } catch (e) {
-
+      const routePlan = new TransitRoutePlan();
+      routePlan.setRealFrom(fromArr);
+      routePlan.setRealTo(toArr);
+      br.transitSearch(routePlan).then((res) => {
+        let resultLine: Array<LatLng> = []
+        let passPoints = res.routeLines
+        let passPoint = passPoints![0].steps
+        for (let i = 0; i < passPoint.length; i++) {
+          let path = passPoint[i]
+          let ll: LatLng = new LatLng(path.entrance?.location.lat, path.entrance?.location.lng)
+          let end: LatLng = new LatLng(path.exit?.location.lat, path.exit?.location.lng)
+          resultLine.push(ll)
+          resultLine.push(end)
         }
-      }, {})
+        let polyline: Polyline = new Polyline({
+          points: resultLine,
+          fillcolor: '#a6f',
+          width: 10,
+          isThined: true,
+          isGeodesic: true
+        });
+        map?.addOverlay(polyline);
+      })
     }
   }
 
@@ -225,7 +264,7 @@ export class BaiduMapTurboModule extends TurboModule {
     let map = MapEnvConstant.getInstance().getMap();
     if (map) {
       Logger.debug(TAG, 'baiduMapTurboModule has map');
-      const br: WalkingRoute = new WalkingRoute();
+      const br: RoutePlanSearch = new RoutePlanSearch();
       const fromArr: LatLng = new LatLng(sl.latitude, sl.longitude);
       const toArr: LatLng = new LatLng(el.latitude, el.longitude);
       // 绘制起点
@@ -259,12 +298,15 @@ export class BaiduMapTurboModule extends TurboModule {
       });
       map.addOverlay(marker2);
       Logger.debug('requestlbs ' + "br.getRouteLines")
-      // 获取步行规划
-      br.getRouteLines(fromArr, toArr, (res: walkRoutes) => {
-        let routes = res.routes;
+      const routePlan = new WalkingRoutePlan();
+      routePlan.setRealFrom(fromArr);
+      routePlan.setRealTo(toArr);
+      br.walkingSearch(routePlan).then((res) => {
+        let routes = res.routeLines[0];
+        let steps = routes.steps[0];
         let line: Array<LatLng> = []
         // 解析轨迹
-        for (let i = 0; i < routes.length; i++) {
+        for (let i = 0; i < steps.pathString.length; i++) {
           let step: step = routes[i]
           let paths: Array<LatLng> = step.path
           for (let i = 0; i < paths.length; i++) {
@@ -276,13 +318,11 @@ export class BaiduMapTurboModule extends TurboModule {
           points: line,
           fillcolor: '#6af',
           width: 10,
-          join: SysEnum.LineJoinType.ROUND,
-          cap: SysEnum.LineCapType.ROUND,
           isThined: true,
           isGeodesic: true
         });
         map?.addOverlay(polyline);
-      }, {})
+      })
     }
   }
 

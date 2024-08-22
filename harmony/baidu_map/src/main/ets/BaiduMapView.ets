@@ -42,7 +42,11 @@ import {
   Marker,
   Polygon,
   Polyline,
-  SysEnum
+  SysEnum,
+  OverlayEvent,
+  EventBundle,
+  TLayer,
+  BaseLayer
 } from '@bdmap/map';
 import { AsyncCallback, BusinessError } from '@ohos.base';
 import { LatLng } from '@bdmap/base';
@@ -54,7 +58,7 @@ import { BAIDU_MAP_OVERLAY_POLYGON_TYPE, BaiduMapOverlayPolygonProps } from './B
 import { BAIDU_MAP_OVERLAY_POLYLINE_TYPE, BaiduMapOverlayPolylineProps } from './BaiduMapOverlayPolyline';
 import { BAIDU_MAP_OVERLAY_CIRCLE_TYPE, BaiduMapOverlayCircleProps } from './BaiduMapOverlayCircle';
 import { BAIDU_MAP_OVERLAY_INFO_WINDOW_TYPE } from './BaiduMapOverlayInfowindow';
-import { AnimateDefine } from '@bdmap/map/src/main/ets/a/d/u/v/w';
+import { AnimateDefine, ESatelliteLayerType } from '@bdmap/map/src/main/ets/r/u/util/l1/m1';
 import { MapEnvConstant } from './MapEnvConstant';
 
 interface mapEvent {
@@ -103,7 +107,7 @@ export struct BaiduMapView {
   private unregisterDescriptorChangesListener?: () => void = undefined
   callback?: AsyncCallback<MapController>;
   @State mapController: MapController | null = null;
-  mapStatus: MapStatus = new MapStatus();
+  mapStatus: MapStatus = new MapStatus({});
   mapOpt: MapOptions = new MapOptions({});
   center: LatLng = new LatLng(39.914935, 116.403119);
   zoom: number = 10;
@@ -113,7 +117,7 @@ export struct BaiduMapView {
   zoomControlsVisible: boolean = true;
   showsUserLocation: boolean = false;
   locationData: Location = { latitude: 0, longitude: 0 };
-  @State loc: LocationLayer | null = null;
+  @State loc: Nullable<TLayer> | null = null;
   label: Label | null = null;
   circle: Circle | null = null;
   polyline: Polyline | null = null;
@@ -280,7 +284,7 @@ export struct BaiduMapView {
     this.mapOpt.moveGesturesEnabled = this.scrollGesturesEnabled;
     if (descriptor.props.mapType == 2) {
       //卫星图
-      this.mapOpt.showSatelliteMap = true;
+      this.mapOpt.showSatelliteMap = ESatelliteLayerType.NO_ROUTE;
     }
 
   }
@@ -324,7 +328,7 @@ export struct BaiduMapView {
           if (this.markerProp) {
             Logger.debug(`RNOH in BaiduMap addOverlay marker prop, ${JSON.stringify(this.markerProp)}`);
             if (this.markerProp.icon && this.markerProp.icon.uri) {
-              this.image = new ImageEntity(this.markerProp.icon.uri, 20, 20);
+              this.image = new ImageEntity(this.markerProp.icon.uri);
             }
 
             this.marker = new Marker();
@@ -367,7 +371,7 @@ export struct BaiduMapView {
               }
             }
 
-            this.marker.addEventListener('click', () => {
+            this.marker.addEventListener(OverlayEvent.CLICK, () => {
               Logger.debug('RNOH in BaiduMap marker click');
               this.onMarkerItemClick(this.ctx.descriptorRegistry.getDescriptor(descriptor.childrenTags[i]).tag);
             })
@@ -501,19 +505,21 @@ export struct BaiduMapView {
             if (this.showsUserLocation) {
               this.loc = this.mapController.getLayerByTag(SysEnum.LayerTag.LOCATION);
               if (this.loc) {
-                this.loc.location = new LatLng(this.locationData.latitude, this.locationData.longitude);
+                let locReal = this.loc as LocationLayer;
+                locReal.location = new LatLng(this.locationData.latitude, this.locationData.longitude);
               }
             }
 
-            this.mapController.addEventListener(MapEvent.CLICK, (event: mapEvent) => {
-              Logger.debug(`RNOH in BaiduMap MapEvent.CLICK event.geo, ${JSON.stringify(event.geo)}`);
-              let clickData = event.geo as LatLng;
+            this.mapController.addEventListener(MapEvent.CLICK, (event) => {
+              let eventModel = event as EventBundle;
+              Logger.debug(`RNOH in BaiduMap MapEvent.CLICK event.geo, ${JSON.stringify(eventModel.geo)}`);
+              let clickData = eventModel.geo as LatLng;
               if (clickData) {
                 this.onMapClick({ latitude: clickData.lat, longitude: clickData.lng });
               }
             });
 
-            this.mapController.addEventListener(MapEvent.DOUBLECLICK, (event: mapEvent) => {
+            this.mapController.addEventListener(MapEvent.DOUBLECLICK, (event) => {
               Logger.debug('RNOH in BaiduMap MapEvent.DOUBLECLICK');
               this.onMapDoubleClick();
             });
