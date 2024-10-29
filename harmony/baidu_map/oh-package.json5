@@ -8,7 +8,7 @@
   "name": "@react-native-oh-tpl/react-native-baidu-map",
   "description": "Baidu Map SDK modules and views for React Native, support react native 0.61+. 百度地图 React Native 模块，支持 react native 0.61+，已更新到最新的百度地图 SDK 版本。",
   "main": "index.ets",
-  "version": "1.0.37-0.0.1",
+  "version": "1.0.37-0.0.2",
   "dependencies": {
     "@rnoh/react-native-openharmony": "file:../react_native_openharmony",
     "@bdmap/base": "1.1.1",
