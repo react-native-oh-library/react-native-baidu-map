@@ -131,6 +131,7 @@ export struct BaiduMapView {
   polygonProp: BaiduMapOverlayPolygonProps | null = null;
   markerProp: BaiduMapOverlayMarkerProps | null = null;
   image: ImageEntity | null = null;
+  @State isInit: boolean = false;
 
   onMapStatusChangeStart(): void {
     this.ctx.rnInstance.emitComponentEvent(
@@ -228,7 +229,9 @@ export struct BaiduMapView {
         this.getProp(this.descriptor);
       }
     )
-
+    setTimeout(() => {
+      this.isInit = true;
+    }, 5)
   }
 
   private getProp(descriptor: BaiduMapViewDescriptor) {
@@ -489,6 +492,7 @@ export struct BaiduMapView {
 
   build() {
     RNViewBase({ ctx: this.ctx, tag: this.tag }) {
+      if (this.isInit) {
       MapComponent({
         onReady: async (err: BusinessError, mapController: MapController) => {
           if (!err && mapController) {
@@ -526,6 +530,7 @@ export struct BaiduMapView {
           }
         }, mapOptions: this.mapOpt
       }).width('100%').height('100%')
+      }
     }
   }
 }
