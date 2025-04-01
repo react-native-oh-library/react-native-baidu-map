@@ -27,13 +27,16 @@ import { TurboModule } from '@rnoh/react-native-openharmony/ts';
 import Logger from './Logger';
 import { MapEnvConstant } from './MapEnvConstant';
 import type { CurrentPosition, GeoCodeData, Location, OpenLocation } from './PublicClass';
-import { DrivingRoutePlanOption, PlanNode, RoutePlanSearch, TransitRoutePlanOption,
-  WalkingRoutePlanOption } from '@bdmap/search';
-import ImageEntity from '@bdmap/map/src/main/ets/r/u/v/b1/f1';
-import Marker from '@bdmap/map/src/main/ets/r/u/v/z/j1';
-import Polyline from '@bdmap/map/src/main/ets/r/u/v/z/e1';
 import { Permissions } from '@kit.AbilityKit';
 import { PermissionUtils } from './PermissionsUtils';
+import { DrivingRoutePlanOption } from '@bdmap/search/src/main/ts/d/e/h/l';
+import { PlanNode } from '@bdmap/search/src/main/ts/d/e/h/f1';
+import { TransitRoutePlanOption } from '@bdmap/search/src/main/ts/d/e/h/n';
+import { WalkingRoutePlanOption } from '@bdmap/search/src/main/ts/d/e/h/m';
+import ImageEntity from '@bdmap/map/src/main/ets/d/g/h/n/r';
+import Marker from '@bdmap/map/src/main/ets/d/g/h/l/v';
+import Polyline from '@bdmap/map/src/main/ets/d/g/h/l/q';
+import { RoutePlanSearch } from '@bdmap/search/src/main/ts/d/e/g';
 
 const TAG: string = '[RNOH]BaiduMapTurboModule'
 
@@ -117,7 +120,7 @@ export class BaiduMapTurboModule extends TurboModule {
     let map = MapEnvConstant.getInstance().getMap();
     if (map) {
       Logger.debug(TAG, 'baiduMapTurboModule has map');
-      const br: RoutePlanSearch = new RoutePlanSearch();
+      const br: RoutePlanSearch = RoutePlanSearch.newInstance();
       const fromArr: LatLng = new LatLng(sl.latitude, sl.longitude);
       const toArr: LatLng = new LatLng(el.latitude, el.longitude);
       Logger.debug('DrivingRoute 绘制起点')
@@ -193,7 +196,7 @@ export class BaiduMapTurboModule extends TurboModule {
     let map = MapEnvConstant.getInstance().getMap();
     if (map) {
       Logger.debug(TAG, 'baiduMapTurboModule has map');
-      const br: RoutePlanSearch = new RoutePlanSearch();
+      const br: RoutePlanSearch = RoutePlanSearch.newInstance();
       const fromArr: LatLng = new LatLng(sl.latitude, sl.longitude);
       const toArr: LatLng = new LatLng(el.latitude, el.longitude);
       // 绘制起点
@@ -264,7 +267,7 @@ export class BaiduMapTurboModule extends TurboModule {
     let map = MapEnvConstant.getInstance().getMap();
     if (map) {
       Logger.debug(TAG, 'baiduMapTurboModule has map');
-      const br: RoutePlanSearch = new RoutePlanSearch();
+      const br: RoutePlanSearch = RoutePlanSearch.newInstance();
       const fromArr: LatLng = new LatLng(sl.latitude, sl.longitude);
       const toArr: LatLng = new LatLng(el.latitude, el.longitude);
       // 绘制起点
