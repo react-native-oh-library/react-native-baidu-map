@@ -11,10 +11,10 @@
   "version": "1.0.37-0.0.4",
   "dependencies": {
     "@rnoh/react-native-openharmony": "file:../react_native_openharmony",
-    "@bdmap/base": "1.1.1",
-    "@bdmap/search": "1.1.2",
-    "@bdmap/map": "1.1.3",
-    "@bdmap/util": "1.0.1",
+    "@bdmap/base": "1.2.6",
+    "@bdmap/search": "1.2.6",
+    "@bdmap/map": "1.2.6",
+    "@bdmap/util": "1.2.6",
     "@bdmap/verify": "1.0.1"
   }
 }

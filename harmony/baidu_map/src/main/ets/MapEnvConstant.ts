@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import MapController from '@bdmap/map/src/main/ets/r/u/v/w';
+import MapController from '@bdmap/map/src/main/ets/d/g/h/i';
 
 export class MapEnvConstant {
   private static _instance: MapEnvConstant;
