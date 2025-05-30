@@ -407,7 +407,8 @@ export struct BaiduMapView {
             })
 
             if (this.polylineProp.stroke) {
-
+              this.polylineProp.stroke.width && this.polyline.setWidth(this.polylineProp.stroke.width);
+              this.polylineProp.stroke.color && this.polyline.setColor('#' + this.polylineProp.stroke.color);
             }
 
             if (this.mapController) {
