@@ -33,10 +33,10 @@ import { DrivingRoutePlanOption } from '@bdmap/search/src/main/ts/d/e/h/l';
 import { PlanNode } from '@bdmap/search/src/main/ts/d/e/h/f1';
 import { TransitRoutePlanOption } from '@bdmap/search/src/main/ts/d/e/h/n';
 import { WalkingRoutePlanOption } from '@bdmap/search/src/main/ts/d/e/h/m';
-import ImageEntity from '@bdmap/map/src/main/ets/d/g/h/n/r';
-import Marker from '@bdmap/map/src/main/ets/d/g/h/l/v';
-import Polyline from '@bdmap/map/src/main/ets/d/g/h/l/q';
 import { RoutePlanSearch } from '@bdmap/search/src/main/ts/d/e/g';
+import ImageEntity from '@bdmap/map/src/main/ets/e/h/i/o/s';
+import Marker from '@bdmap/map/src/main/ets/e/h/i/m/w';
+import Polyline from '@bdmap/map/src/main/ets/e/h/i/m/r';
 
 const TAG: string = '[RNOH]BaiduMapTurboModule'
 
