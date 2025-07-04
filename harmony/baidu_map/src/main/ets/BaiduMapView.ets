@@ -59,7 +59,7 @@ import { BAIDU_MAP_OVERLAY_POLYLINE_TYPE, BaiduMapOverlayPolylineProps } from '.
 import { BAIDU_MAP_OVERLAY_CIRCLE_TYPE, BaiduMapOverlayCircleProps } from './BaiduMapOverlayCircle';
 import { BAIDU_MAP_OVERLAY_INFO_WINDOW_TYPE } from './BaiduMapOverlayInfowindow';
 import { MapEnvConstant } from './MapEnvConstant';
-import { AnimateDefine, ESatelliteLayerType } from '@bdmap/map/src/main/ets/d/g/util/a1/b1';
+import { AnimateDefine, ESatelliteLayerType } from '@bdmap/map/src/main/ets/e/h/util/b1/c1';
 interface mapEvent {
   geo: object,
 }
