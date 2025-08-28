@@ -46,7 +46,7 @@ struct Stroke {
 };
 
 static inline void fromRawValue(const PropsParserContext &context, const RawValue &value, Stroke &result) {
-    auto map = (butter::map<std::string, RawValue>)value;
+    auto map = (std::unordered_map<std::string, RawValue>)value;
 
     auto tmp_color = map.find("color");
     if (tmp_color != map.end()) {
@@ -66,7 +66,7 @@ struct Location {
 };
 
 static inline void fromRawValue(const PropsParserContext &context, const RawValue &value, Location &result) {
-    auto map = (butter::map<std::string, RawValue>)value;
+    auto map = (std::unordered_map<std::string, RawValue>)value;
 
     auto tmp_latitude = map.find("latitude");
     if (tmp_latitude != map.end()) {
@@ -97,7 +97,7 @@ struct BaiduMapOverlayHeatMapGradientStruct {
 
 static inline void fromRawValue(const PropsParserContext &context, const RawValue &value,
                                 BaiduMapOverlayHeatMapGradientStruct &result) {
-    auto map = (butter::map<std::string, RawValue>)value;
+    auto map = (std::unordered_map<std::string, RawValue>)value;
 
     auto tmp_colors = map.find("colors");
     if (tmp_colors != map.end()) {
@@ -125,7 +125,7 @@ struct BaiduMapOverlayMarkerIconStruct {
 
 static inline void fromRawValue(const PropsParserContext &context, const RawValue &value,
                                 BaiduMapOverlayMarkerIconStruct &result) {
-    auto map = (butter::map<std::string, RawValue>)value;
+    auto map = (std::unordered_map<std::string, RawValue>)value;
 
     auto tmp_uri = map.find("uri");
     if (tmp_uri != map.end()) {
