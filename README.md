@@ -1,4 +1,4 @@
-# @react-native-oh-tpl/react-native-baidu-map
+# @react-native-ohos/react-native-baidu-map
 This project is based on   [react-native-baidu-map](https://github.com/lovebing/react-native-baidu-map)
 ## Documentation
 [中文](https://gitee.com/react-native-oh-library/usage-docs/blob/master/zh-cn/react-native-baidu-map.md)
